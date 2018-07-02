@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link type="text/css" rel="stylesheet" href="static/style2.css">
+    <title class="title">liked</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="static/masonry.pkgd.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <h1 align ="center">{{taco}} liked</h1>
+  </head>
+
+  <body>
+    <form action ="/liked" method="post" align ="center">
+      <input type="text" name="taco" placeholder="id">
+      <input type="submit" name="" value="ふぁぼをみる">
+    </form>
+  <div class="grid js-masonry" data-masonry-options='{ "itemSelector": ".grid-item", "columnWidth": 15 }'>
+    {% for result in fav %}{% if "media" in result.entities %}
+	<div class="grid-item">
+	  <section class="card">
+          <div class="card-imgs">
+          {% for media in result.extended_entities["media"] %}<a href="{{ media['media_url_https']+":orig" }}" target="_blank">
+	      <img class="card-img" src="{{ media['media_url_https'] }}" alt=""></a>{% endfor %}
+          </div>
+		<div class="card-content">
+	        <div class="card-user">
+			  <a href="https://twitter.com/{{result.user.screen_name}}" target="_blank">
+			    <img class="card-user-icon" src="{{ result.user.profile_image_url_https }}" align ="left" >
+				<span><p class="card-user-name">{{ result.user.name }}</p>
+				<p class="card-user-name card-user-screen-name">{{"@" +result.user.screen_name}}</p></span></a></div>
+		  <p class="card-text">{{ result.text.split('https://t.co')[0] }}</p>
+          <div class="footer">
+          <a href="/retweet?id={{result.id}}">
+            {% if result.retweeted == true %}<p class="card-retweeted_count" >RT {{ result.retweet_count }}</p></a>
+            {% else %}<p class="card-retweet_count" >RT {{ result.retweet_count }}</p></a>{% endif %}
+          <a href="/like?id={{result.id}}">
+            {% if result.favorited == true %}<p class="card-favorited_count" >fav {{ result.favorite_count }}</p></a>
+            {% else %}<p class="card-favorite_count" >fav {{ result.favorite_count }}</p></a>{% endif %}
+	      <a href="https://twitter.com/{{result.user.screen_name}}/status/{{result.id}}" target="_blank">
+            <p class="card-created_at" >{{ result.created_at }}</p></a>
+          </div>
+        </div>
+	  </section>
+	</div>
+    {% endif %}{% endfor %}
+    </div>
+  </body>
+
+</html>

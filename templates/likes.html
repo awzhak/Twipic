@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ja">
-  <head>
+<head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link type="text/css" rel="stylesheet" href="static/style2.css">
@@ -10,14 +10,26 @@
     <script src="static/masonry.pkgd.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-    <h1 align ="center">{{taco}} liked</h1>
-  </head>
-
+</head>
   <body>
-    <form action ="/liked" method="post" align ="center">
-      <input type="text" name="taco" placeholder="id">
-      <input type="submit" name="" value="ふぁぼをみる">
-    </form>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <span class="navbar-brand mb-0 h1">{{taco}} liked</span>
+      <button type="button" class="navbar-toggler" data-toggle="collapse"
+              data-target="#Navber" aria-controls="Navber" aria-expanded="false">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+      <div class="collapse navbar-collapse" id="Navber">
+        <ul class="navbar-nav mr-auto">
+          <li class="nav-item active">
+              <a class="nav-link" href="#">設定<span class="sr-only"></span></a>
+          </li>
+        </ul>
+        <form action ="/liked" method="post" class="form-inline my-2 my-lg-0">
+          <input type="text" name="taco" class="form-control mr-sm-2" placeholder="id" aria-label="id">
+          <button type="submit" class="btn btn-outline-success my-2 my-sm-0">ふぁぼをみる</button>
+        </form>
+      </div>
+    </nav>
   <div class="grid js-masonry" data-masonry-options='{ "itemSelector": ".grid-item", "columnWidth": 15 }'>
     {% for result in fav %}{% if "media" in result.entities %}
 	<div class="grid-item">
@@ -49,5 +61,10 @@
     {% endif %}{% endfor %}
     </div>
   </body>
+  <footer class="footer">
+    <div class="container">
+      <p class="text-muted">トップへ戻る</p>
+    </div>
+  </footer>
 
 </html>

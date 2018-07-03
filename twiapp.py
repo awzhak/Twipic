@@ -102,4 +102,4 @@ def index2():
 
 # webサーバ起動
 if __name__ == '__main__':
-        app.run(debug = False, host='192.168.0.100', port=5960)
+        app.run(debug = False)
